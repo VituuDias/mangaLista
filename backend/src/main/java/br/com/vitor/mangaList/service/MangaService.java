@@ -20,6 +20,7 @@ public class MangaService {
         if(mangaRepository.existsByTitleAndAuthor(manga.getTitle(), manga.getAuthor())){
             throw new MangaAlreadyExistsException("Essa obra já existe");
         }
+        manga.validateChapters();
         return mangaRepository.save(manga);
     }
 
@@ -44,6 +45,7 @@ public class MangaService {
         mangaNew.setUrlImage(manga.getUrlImage());
         mangaNew.setUrlSite(manga.getUrlSite());
 
+        mangaNew.validateChapters();
         return mangaRepository.save(mangaNew);
     }
 

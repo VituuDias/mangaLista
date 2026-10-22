@@ -57,6 +57,22 @@ public class Manga {
                 && (lastChapterRead == null ? 0 : lastChapterRead) >= totalOfChapters;
     }
 
+    public void validateChapters() {
+        int read = lastChapterRead == null ? 0 : lastChapterRead;
+
+        if (read < 0) {
+            throw new IllegalArgumentException("O último capítulo lido não pode ser negativo");
+        }
+        if (totalOfChapters != null) {
+            if (totalOfChapters < 0) {
+                throw new IllegalArgumentException("O total de capítulos não pode ser negativo");
+            }
+            if (read > totalOfChapters) {
+                throw new IllegalArgumentException("O último capítulo lido não pode ser maior que o total de capítulos");
+            }
+        }
+    }
+
     public Long getId() {
         return id;
     }
@@ -98,6 +114,7 @@ public class Manga {
     }
 
     public void setTotalOfChapters(Integer totalOfChapters) {
+
         this.totalOfChapters = totalOfChapters;
     }
 
@@ -106,7 +123,7 @@ public class Manga {
     }
 
     public void setLastChapterRead(Integer lastChapterRead) {
-        this.lastChapterRead = lastChapterRead;
+        this.lastChapterRead = lastChapterRead == null ? 0 : lastChapterRead;
     }
 
     public Format getFormat() {
