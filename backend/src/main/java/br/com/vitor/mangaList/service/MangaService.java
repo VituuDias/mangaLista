@@ -35,6 +35,9 @@ public class MangaService {
 
     public Manga updateManga(Long id, Manga manga){
         Manga mangaNew = findById(id);
+        if (mangaRepository.existsByTitleAndAuthorAndIdNot(manga.getTitle(), manga.getAuthor(), id)) {
+            throw new MangaAlreadyExistsException("Essa obra já existe");
+        }
 
         mangaNew.setTitle(manga.getTitle());
         mangaNew.setAuthor(manga.getAuthor());
